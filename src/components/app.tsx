@@ -34,8 +34,6 @@ function Workspace() {
         <div>
           <p className="font-serif text-4xl">Calon</p>
           <p className="mt-2 text-mist">Growth with heart. Built in Wales.</p>
-          <p className="mt-1 text-mist">Chai Social</p>
-          <p className="mt-4 text-[0.8rem] text-faint">Chai Social · Whitchurch Road</p>
         </div>
       </main>
     );

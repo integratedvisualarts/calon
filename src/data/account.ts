@@ -1,3 +1,5 @@
+import { brand } from "@/data/brands";
+
 export type ConnectorStatus = "Connected" | "Not connected" | "Upload template";
 
 export type Connector = {
@@ -11,7 +13,7 @@ export type Connector = {
 };
 
 export const team = [
-  { name: "Rajendra", role: "Owner" },
+  { name: brand.teamLead, role: "Owner" },
   { name: "Floor team", role: "Service" },
   { name: "Kitchen team", role: "Pass" },
 ];
@@ -88,7 +90,7 @@ export const connectors: Connector[] = [
     label: "Met Office",
     status: "Connected",
     synced: "Today 05:00",
-    detail: "Forecast for Whitchurch Road, set against past wet days.",
+    detail: brand.weatherDetail,
   },
 ];
 

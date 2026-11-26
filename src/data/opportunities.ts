@@ -1,5 +1,5 @@
 import type { Variant } from "@/data/demo-data";
-import { chaiSocialProfile, type RestaurantProfile } from "@/data/restaurant";
+import { activeProfile, type RestaurantProfile } from "@/data/restaurant";
 
 export enum OpportunityType {
   Festival = "Festival",
@@ -117,7 +117,7 @@ export function relevance(opportunity: Opportunity, profile: RestaurantProfile):
 }
 
 /** Only opportunities that fit this type and cuisine. Others would see a different set. */
-export function matchingOpportunities(profile: RestaurantProfile = chaiSocialProfile, minimum = 0.5): Opportunity[] {
+export function matchingOpportunities(profile: RestaurantProfile = activeProfile, minimum = 0.5): Opportunity[] {
   return opportunities
     .map((item) => ({ item, score: relevance(item, profile) }))
     .filter((row) => row.score >= minimum)
@@ -132,7 +132,7 @@ export function matchingOpportunities(profile: RestaurantProfile = chaiSocialPro
 /** One surfaced opportunity per type, featured first, in Festival → Weather order. */
 export function opportunitiesForType(
   type: OpportunityType,
-  profile: RestaurantProfile = chaiSocialProfile,
+  profile: RestaurantProfile = activeProfile,
   when?: Opportunity["when"],
 ): Opportunity[] {
   return matchingOpportunities(profile)
@@ -140,7 +140,7 @@ export function opportunitiesForType(
     .sort((a, b) => b.priority - a.priority);
 }
 
-export function homeOpportunities(profile: RestaurantProfile = chaiSocialProfile): Opportunity[] {
+export function homeOpportunities(profile: RestaurantProfile = activeProfile): Opportunity[] {
   const matched = matchingOpportunities(profile);
   return opportunityTypeOrder.flatMap((type) => {
     const pool = matched.filter((item) => item.type === type);

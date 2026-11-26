@@ -11,6 +11,7 @@ import { campaignCatalog, sourceFor, type CampaignSource } from "@/lib/campaign-
 import type { Campaign } from "@/lib/channels";
 import { useStore } from "@/lib/store";
 import { useState } from "react";
+import { brand } from "@/data/brands";
 
 const filters = ["draft", "team", "scheduled", "live", "done"] as const;
 
@@ -315,7 +316,7 @@ function linesFor(seed: string, channel: string, spin: number) {
     copy.caption,
     `${copy.headline}. ${copy.offer}. On ${channel}.`,
     `${copy.dish} this week. ${copy.cta}. ${channel}.`,
-    `Whitchurch Road. ${copy.offer}. ${copy.cta}.`,
+    `${brand.place}. ${copy.offer}. ${copy.cta}.`,
     `${copy.google} Via ${channel}.`,
   ];
   return [0, 1, 2].map((index) => ({

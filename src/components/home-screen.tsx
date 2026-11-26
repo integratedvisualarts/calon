@@ -3,56 +3,18 @@
 import { business, sales, visibility } from "@/data/demo-data";
 import { actionLabel, homeOpportunities, seeAllLabel, typeSlug, type Opportunity } from "@/data/opportunities";
 import { visibilityIndex } from "@/data/visibility-tracks";
-import { chaiSocialProfile } from "@/data/restaurant";
+import { activeProfile } from "@/data/restaurant";
 import { Card, CardSkeleton, EmptyState, PageHeader, mentionTone, usePause } from "@/components/bits";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useStore } from "@/lib/store";
+import { brand } from "@/data/brands";
+import { hhmm } from "@/engine/dates";
+import { workspace } from "@/data/live";
 import { engineCards } from "@/lib/visibility-cards";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const competitors = [
-  {
-    id: "mint",
-    name: "Mint Leaf",
-    miles: "0.4",
-    score: 71,
-    term: "chai near me",
-    rating: "4.6",
-    reviews: 320,
-    gap: "The profile answers “chai near me” in the first sentence.",
-  },
-  {
-    id: "cathays",
-    name: "Cathays Street Food",
-    miles: "0.7",
-    score: 66,
-    term: "Indian street food Cathays",
-    rating: "4.4",
-    reviews: 180,
-    gap: "Street food and Cathays are in the business name.",
-  },
-  {
-    id: "tiffin",
-    name: "Church Road Tiffin",
-    miles: "0.9",
-    score: 52,
-    term: "Diwali thali Cardiff",
-    rating: "4.5",
-    reviews: 96,
-    gap: "A Diwali thali is already on their Google menu.",
-  },
-  {
-    id: "heath",
-    name: "Heath Open Kitchen",
-    miles: "0.8",
-    score: 61,
-    term: "curry near me open now",
-    rating: "4.3",
-    reviews: 210,
-    gap: "Site hours and the order page match.",
-  },
-] as const;
+const competitors = brand.rivals;
 
 export function HomeScreen() {
   const store = useStore();
@@ -74,7 +36,7 @@ export function HomeScreen() {
   }
   const score = visibility.ai;
   const engines = engineCards("ai").slice(0, 3);
-  const slides = homeOpportunities(chaiSocialProfile);
+  const slides = homeOpportunities(activeProfile);
   function launch(item: Opportunity) {
     const seed = item.campaign;
     store.openOrCreate(seed.id, () => ({
@@ -163,9 +125,9 @@ export function HomeScreen() {
             audience: "People searching nearby",
             timing: "Thursday 11:00",
             variants: [
-              { id: "a", label: "Straight", body: `Chai Social, 134 Whitchurch Road. For “${rival.term}”: vegetarian thali, masala chai, dinner until 22:00. Reply to book.` },
-              { id: "b", label: "Warmer", body: `Looking for ${rival.term}? We’re on Whitchurch Road. The vegetarian thali and masala chai are on. Reply and we’ll hold a table.` },
-              { id: "c", label: "Shorter", body: `${rival.term}. Chai Social, Whitchurch Road. Thali and masala chai. Reply to book.` },
+              { id: "a", label: "Straight", body: `${brand.nameAndPlace}. For “${rival.term}”: ${brand.signatureWords}, dinner until ${hhmm(workspace.hours.dinner.close)}. Reply to book.` },
+              { id: "b", label: "Warmer", body: `Looking for ${rival.term}? We’re on ${brand.place}. ${brand.signaturePair} are on. Reply and we’ll hold a table.` },
+              { id: "c", label: "Shorter", body: `${rival.term}. ${workspace.name}, ${brand.place}. ${brand.signatureWords}. Reply to book.` },
             ],
           }));
         }}

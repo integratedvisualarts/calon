@@ -1,4 +1,5 @@
 import { business, type CampaignStatus } from "@/data/demo-data";
+import { brand } from "@/data/brands";
 
 export type Shot = { id: string; dataUrl: string; note: string };
 
@@ -150,7 +151,7 @@ export function buildChannels(campaign: Campaign, body: string): ChannelView[] {
       included: true,
       fields: [
         { key: "from", label: "From", value: business.name },
-        { key: "subject", label: "Subject", value: clip(campaign.title || "Chai Social", 58) },
+        { key: "subject", label: "Subject", value: clip(campaign.title || business.name, 58) },
         { key: "preheader", label: "Preheader", value: clip(photoLine || first, 90) },
         { key: "body", label: "Body", value: message, multiline: true },
         { key: "cta", label: "Button", value: business.cta },
@@ -183,7 +184,7 @@ export function buildChannels(campaign: Campaign, body: string): ChannelView[] {
         { key: "proof", label: "9–13s · the limit", value: end, multiline: true },
         { key: "end", label: "13–15s · where", value: `${business.name} · ${business.town}` },
         { key: "caption", label: "Caption", value: message, multiline: true },
-        { key: "cover", label: "Cover line", value: clip(photoLine || campaign.title || "Chai Social", 32) },
+        { key: "cover", label: "Cover line", value: clip(photoLine || campaign.title || business.name, 32) },
       ],
     },
     {
@@ -207,7 +208,7 @@ export function buildChannels(campaign: Campaign, body: string): ChannelView[] {
       note: "A Google Business Profile post, ready when you approve.",
       included: true,
       fields: [
-        { key: "title", label: "Title", value: clip(campaign.title || "Chai Social", 58) },
+        { key: "title", label: "Title", value: clip(campaign.title || business.name, 58) },
         { key: "body", label: "Post", value: message, multiline: true },
         { key: "button", label: "Button", value: business.cta },
       ],
@@ -219,21 +220,21 @@ export function buildChannels(campaign: Campaign, body: string): ChannelView[] {
       note: "Search ads for this offer, from your Google Ads account.",
       included: true,
       fields: [
-        { key: "h1", label: "Headline 1", value: clip(photoLine || campaign.title || "Chai Social", 30), hint: "30 characters in a live ad." },
+        { key: "h1", label: "Headline 1", value: clip(photoLine || campaign.title || business.name, 30), hint: "30 characters in a live ad." },
         { key: "h2", label: "Headline 2", value: clip(business.name, 30) },
-        { key: "h3", label: "Headline 3", value: clip("Whitchurch Road", 30) },
+        { key: "h3", label: "Headline 3", value: clip(brand.place, 30) },
         { key: "d1", label: "Description", value: clip(first, 90), multiline: true, hint: "90 characters in a live ad." },
         { key: "d2", label: "Description 2", value: clip(`${campaign.audience}. ${campaign.timing}.`, 90), multiline: true },
         { key: "keywords", label: "Keywords", value: business.keywords, multiline: true, hint: "Phrase match. One a line." },
         { key: "budget", label: "Daily cap", value: "Not set" },
-        { key: "bid", label: "Bid note", value: "Recent Cardiff clicks on these terms sit around £0.40–£1.20." },
+        { key: "bid", label: "Bid note", value: brand.adBid },
       ],
     },
     {
       id: "sign",
       label: "In-store sign",
       when: "On the day",
-      note: "Window on Whitchurch Road. Big type, few words.",
+      note: `Window on ${brand.place}. Big type, few words.`,
       included: true,
       fields: [
         { key: "headline", label: "Headline", value: headline, multiline: true },

@@ -6,6 +6,7 @@ import { Card, EmptyState, mentionTone, PageHeader, PrimaryButton, ScoreRing } f
 import { useStore } from "@/lib/store";
 import { engineCards } from "@/lib/visibility-cards";
 import { useMemo, useState } from "react";
+import { brand } from "@/data/brands";
 
 export function VisibilityScreen() {
   const store = useStore();
@@ -88,7 +89,7 @@ function CompetitorNote({ onClose }: { onClose: () => void }) {
   return (
     <Card className="grid gap-2 p-4">
       <p className="font-medium text-[#2B2B2B]">Competitors sit on Home.</p>
-      <p className="text-[0.9rem] text-[#5C564C]">Mint Leaf leads “chai near me” because the profile answers it in the first sentence.</p>
+      <p className="text-[0.9rem] text-[#5C564C]">{brand.rivalNote}</p>
       <button type="button" onClick={onClose} className="h-11 justify-self-start font-semibold text-[#7A5E28]">
         Close
       </button>
@@ -160,7 +161,7 @@ function SeoPage() {
       {visibilityCopy.blog ? (
       <Card className="grid gap-2 p-4">
         <p className="text-[0.75rem] font-medium tracking-wide text-[#7A5E28] uppercase">Blog and guest content</p>
-        <p className="text-[#2B2B2B]">A Cardiff food blog post is the off-page suggestion: chai and the thali on Whitchurch Road.</p>
+        <p className="text-[#2B2B2B]">{brand.blogNote}</p>
         <PrimaryButton
           onClick={() =>
             store.openOrCreate("fix-seo-blogs", () =>

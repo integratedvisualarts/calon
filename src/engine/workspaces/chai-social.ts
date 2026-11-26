@@ -335,4 +335,19 @@ export const chaiSocial: Workspace = {
     "Megan", "Arun", "Lewis", "Priya", "Rhys", "Sana", "Tom", "Aisha", "Gethin", "Nisha", "Owen", "Hannah",
     "Ravi", "Ffion", "Imran", "Chloe", "Dev", "Seren", "Kiran", "Ben", "Zara", "Iolo", "Meera", "Sam",
   ],
+  voice: {
+    drink: "masala chai",
+    wetLine: "Choley batura, a vegetable curry and masala chai",
+    wetShort: "choley and chai",
+    praise: "the masala chai or the chaat",
+    praiseTitle: "Guests name the chai and the chaat",
+    praiseLines: [
+      "Guests come back for the masala chai and the samosa chaat. Both are on this week, {street}.",
+      "“Came back for the chai.” We hear it a lot. Come and find out why.",
+      "Masala chai. Samosa chaat. {street}.",
+    ],
+    house: "chai house",
+    photoWord: "chai",
+    awayWho: "students",
+  },
 };

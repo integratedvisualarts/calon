@@ -1,4 +1,4 @@
-import { chaiSocial } from "@/engine/workspaces/chai-social";
+import { activeWorkspace } from "@/data/current";
 
 /** Who this account is. Opportunity matching reads type, cuisine and tags. */
 export type RestaurantProfile = {
@@ -9,10 +9,10 @@ export type RestaurantProfile = {
   tags: readonly string[];
 };
 
-export const chaiSocialProfile: RestaurantProfile = {
-  id: chaiSocial.id,
-  name: chaiSocial.name,
-  type: chaiSocial.type,
-  cuisine: chaiSocial.cuisine,
-  tags: chaiSocial.tags,
+export const activeProfile: RestaurantProfile = {
+  id: activeWorkspace.id,
+  name: activeWorkspace.name,
+  type: activeWorkspace.type,
+  cuisine: activeWorkspace.cuisine,
+  tags: activeWorkspace.tags,
 };

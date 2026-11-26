@@ -349,9 +349,9 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
           audience: ws.audiences.local,
           timing: slot.label,
           variants: v(
-            `${ws.street} stays open while campus is away. ${hero.name} and masala chai, lunch and dinner. Walk in or book.`,
-            `Still here when the students go home. Come in for ${lowerFirst(hero.name)} and a masala chai on ${ws.street}.`,
-            `${ws.street}, open as usual. ${hero.name} and masala chai.`,
+            `${ws.street} stays open while campus is away. ${hero.name} and ${ws.voice.drink}, lunch and dinner. Walk in or book.`,
+            `Still here when the ${ws.voice.awayWho} go home. Come in for ${lowerFirst(hero.name)} and ${ws.voice.drink} on ${ws.street}.`,
+            `${ws.street}, open as usual. ${hero.name} and ${ws.voice.drink}.`,
           ),
         },
       });
@@ -407,7 +407,7 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
         timing: slot.label,
         variants: v(
           `${name} ${rel === "today" ? "is today" : `is ${rel}`}. ${hero.name} ${timeLine} on ${ws.street}. Reply to book.`,
-          `${entry.angle ?? `Make ${name} a table out`}. Come to ${ws.name}: the ${lowerFirst(hero.name)} is the easy order and the masala chai is on. Reply and we’ll hold a table.`,
+          `${entry.angle ?? `Make ${name} a table out`}. Come to ${ws.name}: the ${lowerFirst(hero.name)} is the easy order and ${ws.voice.drink} is on. Reply and we’ll hold a table.`,
           `${name}. ${hero.name} ${timeLine}. ${ws.street}. Reply to book.`,
         ),
       },
@@ -604,9 +604,9 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
                   `Lids taped, every order. Tell us if one leaks.`,
                 )
               : v(
-                  `The lunch kathi roll comes as listed: the wrap and its sides. That is the portion, stated up front.`,
-                  `Lunch on ${ws.street}: the kathi roll, with what comes with it written on the board.`,
-                  `Kathi roll, as listed. ${ws.street}.`,
+                  `The lunch dish comes as listed, with its sides. That is the portion, stated up front.`,
+                  `Lunch on ${ws.street}: what comes with each dish, written on the board.`,
+                  `Lunch, as listed. ${ws.street}.`,
                 ),
         },
       });
@@ -617,10 +617,10 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
         priority: rankScore(0.1, 6, 1, "Moderate"),
         when: "week",
         subtype: theme.name,
-        title: theme.id === "welcome" ? "Guests name the welcome" : "Guests name the chai and the chaat",
-        insight: `${plural(theme.count, "review")} in 8 weeks praise ${theme.id === "welcome" ? "the welcome" : "the masala chai or the chaat"}. It is the line to reuse, not a new promise.`,
+        title: theme.id === "welcome" ? "Guests name the welcome" : ws.voice.praiseTitle,
+        insight: `${plural(theme.count, "review")} in 8 weeks praise ${theme.id === "welcome" ? "the welcome" : ws.voice.praise}. It is the line to reuse, not a new promise.`,
         metric: plural(theme.count, "review"),
-        fitReason: theme.id === "welcome" ? "Fits: a room that looks after groups" : "Fits: chai house",
+        fitReason: theme.id === "welcome" ? "Fits: a room that looks after groups" : `Fits: ${ws.voice.house}`,
         actionLabel: "Share what they say",
         tags: ["indian"],
         confidence: "Moderate",
@@ -634,14 +634,14 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
           variants:
             theme.id === "welcome"
               ? v(
-                  `The room is looked after. ${heroMain.name} and masala chai, ${ws.street}.`,
+                  `The room is looked after. ${heroMain.name} and ${ws.voice.drink}, ${ws.street}.`,
                   `People stay because the welcome is warm. If you’re in, the ${lowerFirst(heroMain.name)} is the easy order.`,
                   `A warm room. ${heroMain.name}. ${ws.street}.`,
                 )
               : v(
-                  `Guests come back for the masala chai and the samosa chaat. Both are on this week, ${ws.street}.`,
-                  `“Came back for the chai.” We hear it a lot. Come and find out why.`,
-                  `Masala chai. Samosa chaat. ${ws.street}.`,
+                  ws.voice.praiseLines[0].replace("{street}", ws.street),
+                  ws.voice.praiseLines[1].replace("{street}", ws.street),
+                  ws.voice.praiseLines[2].replace("{street}", ws.street),
                 ),
         },
       });
@@ -705,13 +705,13 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
       value: extra,
       campaign: {
         id: "opp-weather-wet",
-        title: "Rainy-day choley and chai",
+        title: `Rainy-day ${ws.voice.wetShort}`,
         audience: ws.audiences.delivery,
         timing: postSlot(first, now, 0, 15 * 60).label,
         variants: v(
-          `Rain is due ${listJoin(names.map((n) => n))}. Choley batura, a vegetable curry and masala chai are on for delivery. We can take ${cap} orders.`,
-          `Stay in the dry. We’ll send choley and chai to your door from ${ws.street}, while ${cap} portions last.`,
-          `Wet ${names[0]}. Choley and chai, delivered. ${cap} orders.`,
+          `Rain is due ${listJoin(names.map((n) => n))}. ${ws.voice.wetLine} are on for delivery. We can take ${cap} orders.`,
+          `Stay in the dry. We’ll send ${ws.voice.wetShort} to your door from ${ws.street}, while ${cap} portions last.`,
+          `Wet ${names[0]}. ${capitalise(ws.voice.wetShort)}, delivered. ${cap} orders.`,
         ),
       },
     });
@@ -776,7 +776,7 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
     audience: ws.audiences.local,
     timing: postSlot(nextQuiet, now, 0).label,
     variants: v(
-      `${dayNames[quiet.dow]} ${quiet.service} at ${ws.name}. ${quiet.service === "lunch" && roll ? `${roll.name}, ${money(roll.price, true)},` : `${heroMain.name} and masala chai,`} ${hhmm(ws.hours[quiet.service].open)}–${hhmm(ws.hours[quiet.service].close)}, ${ws.street}.`,
+      `${dayNames[quiet.dow]} ${quiet.service} at ${ws.name}. ${quiet.service === "lunch" && roll ? `${roll.name}, ${money(roll.price, true)},` : `${heroMain.name} and ${ws.voice.drink},`} ${hhmm(ws.hours[quiet.service].open)}–${hhmm(ws.hours[quiet.service].close)}, ${ws.street}.`,
       `If ${dayNames[quiet.dow]} is a quiet one, come in for ${quiet.service}. We’ll hold a table if you reply.`,
       `${dayNames[quiet.dow]} ${quiet.service}, ${hhmm(ws.hours[quiet.service].open)}. ${ws.street}.`,
     ),
@@ -791,9 +791,9 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
     audience: ws.audiences.delivery,
     timing: wetDays.length ? postSlot(wetDays[0].day, now, 0, 15 * 60).label : "Today",
     variants: v(
-      `Delivery from ${ws.name}. Choley and masala chai on Deliveroo, Uber Eats and Just Eat.`,
-      `Stay in. We’ll send chai and choley from ${ws.street}.`,
-      `Delivery today. Choley and chai.`,
+      `Delivery from ${ws.name}. ${capitalise(ws.voice.wetLine.split(", ")[0])} and ${ws.voice.drink} on Deliveroo, Uber Eats and Just Eat.`,
+      `Stay in. We’ll send ${ws.voice.wetShort} from ${ws.street}.`,
+      `Delivery today. ${capitalise(ws.voice.wetShort)}.`,
     ),
   });
   salesOpps.push({
@@ -837,7 +837,7 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
       audience: ws.audiences.local,
       timing: "Today",
       variants: v(
-        `Tables free tonight on ${ws.street}. ${heroMain.name} and masala chai from ${hhmm(ws.hours.dinner.open)}. Walk in.`,
+        `Tables free tonight on ${ws.street}. ${heroMain.name} and ${ws.voice.drink} from ${hhmm(ws.hours.dinner.open)}. Walk in.`,
         `Haven’t sorted dinner? We’ve room tonight on ${ws.street}. Come as you are.`,
         `Room tonight. ${ws.street}. Walk in.`,
       ),
@@ -847,7 +847,7 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
   // ---------- Visibility fixes ----------
   const close = hhmm(ws.hours.dinner.close);
   const lastOnline = hhmm(ws.hours.dinner.close - 15);
-  const signatureLine = `${heroMain.name} and masala chai`;
+  const signatureLine = `${heroMain.name} and ${ws.voice.drink}`;
   const hoursLine = `Lunch ${hhmm(ws.hours.lunch.open)}–${hhmm(ws.hours.lunch.close)}, dinner ${hhmm(ws.hours.dinner.open)}–${close}`;
   const fixCopy: Record<string, { id: string; title: string; detail: string; action: string; draftTitle: string; body: string; effort: string }> = {
     "gbp-description": {
@@ -864,14 +864,14 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
       title: "FAQ the engines can quote",
       detail: "Answer engines quote pages that answer the question in plain sentences.",
       action: "Draft the FAQ",
-      draftTitle: "FAQ: groups, chai and hours",
-      body: `Yes, we take groups. The ${lowerFirst(heroMain.name)} is the easy order. Masala chai is served all day. ${hoursLine}. ${ws.address}.`,
+      draftTitle: `FAQ: groups, ${ws.voice.photoWord} and hours`,
+      body: `Yes, we take groups. The ${lowerFirst(heroMain.name)} is the easy order. Ask us about ${ws.voice.drink}. ${hoursLine}. ${ws.address}.`,
       effort: "Low",
     },
     "menu-schema": {
       id: "aeo-menu",
       title: "Menu structured data",
-      detail: `The ${lowerFirst(heroMain.name)} and masala chai are not marked up, so engines cannot list them.`,
+      detail: `The ${lowerFirst(heroMain.name)} and ${ws.voice.drink} are not marked up, so engines cannot list them.`,
       action: "Mark up the menu",
       draftTitle: "Menu schema",
       body: `Mark up ${signatureLine.toLowerCase()} at ${ws.address} as menu items, with the hours ${hoursLine.toLowerCase()}.`,
@@ -892,7 +892,7 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
       detail: `${pct(audit.languageShare)} of reviews in 90 days name a dish and ${ws.street} together. Engines repeat the words guests use.`,
       action: "Ask for the words",
       draftTitle: "Review request: dish and road",
-      body: `If you have a minute, a Google review that names what you ordered, masala chai or the ${lowerFirst(heroMain.name)}, and ${ws.street}, helps the next table find us.`,
+      body: `If you have a minute, a Google review that names what you ordered, ${ws.voice.drink} or the ${lowerFirst(heroMain.name)}, and ${ws.street}, helps the next table find us.`,
       effort: "Medium",
     },
     "local-lists": {
@@ -945,7 +945,7 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
       title: `A ${ws.town} food blog link`,
       detail: `No ${ws.town} food blog points at the menu. That is the off-page gap.`,
       action: "Pitch the blog",
-      draftTitle: `Pitch: chai on ${ws.street}`,
+      draftTitle: `Pitch: ${ws.voice.photoWord} on ${ws.street}`,
       body: `A short piece for a ${ws.town} food blog: ${signatureLine.toLowerCase()} at ${ws.address}, dinner until ${close}.`,
       effort: "Medium",
     },
@@ -960,11 +960,11 @@ export function computeSnapshot(ws: Workspace, now: Date, done: DoneFix[] = []) 
     },
     "gbp-photos": {
       id: "seo-photos",
-      title: `Photos of the ${lowerFirst(heroMain.name)} and the chai`,
-      detail: `The last photo went up ${audit.photoAge} days ago. The listing needs a current ${lowerFirst(heroMain.name)} and a masala chai.`,
+      title: `Photos of the ${lowerFirst(heroMain.name)} and the ${ws.voice.photoWord}`,
+      detail: `The last photo went up ${audit.photoAge} days ago. The listing needs a current ${lowerFirst(heroMain.name)} and ${ws.voice.drink}.`,
       action: "List the two photos",
       draftTitle: "Google photos",
-      body: `Add a ${lowerFirst(heroMain.name)} photo and a masala chai photo to the Google listing for ${ws.address}.`,
+      body: `Add a ${lowerFirst(heroMain.name)} photo and a ${ws.voice.photoWord} photo to the Google listing for ${ws.address}.`,
       effort: "Low",
     },
     "gbp-post": {

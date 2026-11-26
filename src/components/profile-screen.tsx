@@ -2,11 +2,12 @@
 
 import { connectors, planFeatures, plans, team, type Connector, type ConnectorStatus } from "@/data/account";
 import { business } from "@/data/demo-data";
-import { chaiSocialProfile } from "@/data/restaurant";
+import { activeProfile } from "@/data/restaurant";
 import { Card, PageHeader } from "@/components/bits";
 import { useStore } from "@/lib/store";
 import { MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { TillUpload } from "@/components/till-upload";
 
 export function ProfileScreen() {
   const store = useStore();
@@ -22,6 +23,7 @@ export function ProfileScreen() {
         Ask Calon
       </button>
       <Account />
+      <TillUpload />
       <Connectors />
       <Plan />
     </div>
@@ -31,11 +33,11 @@ export function ProfileScreen() {
 function Account() {
   const rows = [
     ["Business name", business.name],
-    ["Type", chaiSocialProfile.type],
-    ["Cuisine", chaiSocialProfile.cuisine],
+    ["Type", activeProfile.type],
+    ["Cuisine", activeProfile.cuisine],
     ["Address", business.address],
     ["Owner", business.manager],
-    ["Email", business.email],
+    ["Email", business.email || "Not added yet"],
     ["Phone", business.phone],
     ["Opening hours", business.websiteHours],
   ];
@@ -62,6 +64,19 @@ function Account() {
             ))}
           </ul>
         </div>
+        <button
+          type="button"
+          className="min-h-11 justify-self-start font-semibold text-[#7A5E28]"
+          onClick={async () => {
+            try {
+              await fetch("/api/logout", { method: "POST" });
+            } finally {
+              window.location.assign("/login");
+            }
+          }}
+        >
+          Sign out
+        </button>
       </Card>
     </section>
   );

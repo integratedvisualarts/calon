@@ -106,6 +106,27 @@ export type Workspace = {
   queries: { ai: { question: string; checks: string[] }[]; seo: { question: string; checks: string[] }[] };
   audiences: { groups: string; delivery: string; local: string; past: string; staff: string };
   firstNames: string[];
+  /** The words this restaurant uses for itself in drafted copy. */
+  voice: {
+    /** The drink or pairing named beside the hero dish, e.g. "masala chai". */
+    drink: string;
+    /** Wet-day delivery line, e.g. "Choley batura, a vegetable curry and masala chai". */
+    wetLine: string;
+    /** Short wet-day pair, e.g. "choley and chai". */
+    wetShort: string;
+    /** What guests praise besides the welcome, e.g. "the masala chai or the chaat". */
+    praise: string;
+    /** Title for that praise opportunity. */
+    praiseTitle: string;
+    /** Draft lines for the praise campaign (three variants; {street} is replaced). */
+    praiseLines: [string, string, string];
+    /** Tag shown in "Fits: ..." for this house style. */
+    house: string;
+    /** Photo list, e.g. "chai". */
+    photoWord: string;
+    /** Who is away in the quiet weeks, e.g. "students". */
+    awayWho: string;
+  };
 };
 
 export type OrderLine = { item: string; qty: number; price: number };

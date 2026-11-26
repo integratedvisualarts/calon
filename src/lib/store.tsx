@@ -13,6 +13,7 @@ import { liveNow, tickMs } from "@/engine/clock";
 import type { DoneFix } from "@/engine/visibility";
 import { labelFor, parseLocation, viewKey, viewUrl, type Screen, type View } from "@/lib/history";
 import {
+import { activeId } from "@/data/current";
   createContext,
   useContext,
   useEffect,
@@ -38,7 +39,7 @@ type ChatMessage = {
   card?: { title: string; body: string };
 };
 
-const storageKey = "chai-social-workspace";
+const storageKey = `calon-workspace-${activeId}`;
 
 function nowLabel() {
   return new Intl.DateTimeFormat("en-GB", {
@@ -429,7 +430,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...current,
           plan,
           upgradePrompt: false,
-          log: pushLog(current, "Plan", plan === "pro" ? "Chai Social is on Pro. Demo only. No payment taken." : "Chai Social is on Plus. Demo only. No payment taken."),
+          log: pushLog(current, "Plan", plan === "pro" ? `${business.name} is on Pro. Demo only. No payment taken.` : `${business.name} is on Plus. Demo only. No payment taken.`),
           toast: { text: plan === "pro" ? "Pro · £50/month. Demo only. No payment taken." : "Plus · £25/month. Demo only. No payment taken." },
         })),
       dismissUpgrade: () => patch({ upgradePrompt: false }),
@@ -529,7 +530,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
               id: `a-${Date.now()}`,
               role: "assistant",
               text: "I can answer from your till data, Google and the rota. Try one of the questions below.",
-              source: "Chai Social account",
+              source: `${business.name} account`,
             };
         setState((current) => ({ ...current, messages: [...current.messages, userMessage, answer] }));
       },

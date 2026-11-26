@@ -17,7 +17,7 @@ export const themeNames: Record<ThemeId, string> = {
   portion: "Lunch portion comments",
   packaging: "Delivery packaging",
   welcome: "Warm welcome",
-  signature: "Masala chai and chaat",
+  signature: "Signature dishes and drinks",
 };
 
 /** What the reader looks for in text. Order matters only for display. */
@@ -26,7 +26,7 @@ export const themeLexicon: Record<ThemeId, { words: string[]; tone: "up" | "down
   portion: { words: ["small", "portion", "what came with"], tone: "down" },
   packaging: { words: ["lid", "leak", "spilled", "shifted in the bag"], tone: "down" },
   welcome: { words: ["welcome", "looked after", "friendly", "remembered"], tone: "up" },
-  signature: { words: ["chai", "chaat"], tone: "up" },
+  signature: { words: ["chai", "chaat", "tandoor"], tone: "up" },
 };
 
 const phrases = {
@@ -112,7 +112,7 @@ export function reviewsUpTo(ws: Workspace, now: Date): Review[] {
         if (dish && r.chance(0.7)) parts.push(dish);
         const hasSignature = order.lines.some((line) => ["chai", "ragada", "dahipuri"].includes(line.item));
         if (hasSignature && r.chance(0.42)) {
-          parts.push(r.chance(0.5) ? "Came back for the masala chai." : "The chaat is the thing to order.");
+          parts.push(r.chance(0.5) ? `Came back for ${ws.voice.drink.replace(/^a /, "the ")}.` : "The chaat is the thing to order.");
           themes.push(themeNames.signature);
         }
         if (r.chance(0.11)) parts.push(`Easy to find on ${ws.street}.`);
@@ -149,7 +149,7 @@ export function replyDraft(review: Review, ws: Workspace): string {
   if (t.includes("speed")) return `Thank you for saying so, ${review.name}. A long wait on a busy night is on us, even when the food lands. We’re putting one more person on the floor at the peak. We’d like the chance to do better.`;
   if (t.includes("packaging")) return `Sorry about the bag, ${review.name}. Lids are now taped before they leave ${ws.street}. If a dish arrives spilled, message us and we’ll replace it.`;
   if (t.includes("portion")) return `Thanks, ${review.name}. The lunch roll comes as listed on the menu, and we’ll make that clearer on the board.`;
-  if (review.stars >= 5 && t.includes("signature")) return `Thank you, ${review.name}. The chai and the chaat are exactly what we hope people leave talking about. See you on ${ws.street}.`;
+  if (review.stars >= 5 && t.includes("signature")) return `Thank you, ${review.name}. ${ws.voice.praise.replace(/^the /, "The ")} ${ws.voice.praise.includes(" or ") ? "are" : "is"} exactly what we hope people leave talking about. See you on ${ws.street}.`;
   if (review.stars >= 5) return `Thank you, ${review.name}. We’ll pass this to the team. See you on ${ws.street} soon.`;
   return `Thank you for the review, ${review.name}. We’re glad you came in, and we’ll take the note to the team.`;
 }

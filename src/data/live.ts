@@ -10,7 +10,7 @@ import { computeSnapshot, replyDraft, type Snapshot } from "@/engine/snapshot";
 import { readThemes, themeNames } from "@/engine/reviews";
 import { capitalise, listJoin, lowerFirst, money, moneyRange, pct, plural } from "@/engine/text";
 import type { DoneFix } from "@/engine/visibility";
-import { chaiSocial } from "@/engine/workspaces/chai-social";
+import { activeWorkspace } from "@/data/current";
 import {
   areaPlaces,
   areaSignals,
@@ -34,8 +34,8 @@ import { aeoFixes, seoGroups, visibilityCopy, visibilityIndex, type TrackFix } f
 import { opportunities, type Opportunity } from "@/data/opportunities";
 import { connectors } from "@/data/account";
 
-/** The restaurant this deployment shows. Point this at another file in src/engine/workspaces for a pilot. */
-export const workspace = chaiSocial;
+/** The restaurant the signed-in account opens. Chosen by the sign-in; see src/data/current.ts. */
+export const workspace = activeWorkspace;
 
 let current: Snapshot | null = null;
 const fixChecks = new Map<string, string>();
@@ -341,11 +341,11 @@ export function refreshLive(done: DoneFix[] = [], now: Date = liveNow()): Snapsh
       case "packaging":
         return { action: "A packing note for the pass: tape every lid. Don’t offer a refund in this draft.", draft: `Delivery lids are taped before they leave ${ws.street}. If a bag still leaks, tell us and we’ll replace that dish.` };
       case "portion":
-        return { action: "Say what the kathi roll includes. Don’t quietly shrink it.", draft: "The lunch kathi roll comes as listed on the menu. That is the portion, stated up front." };
+        return { action: "Say what the lunch dish includes. Don’t quietly shrink it.", draft: "The lunch dish comes as listed on the menu. That is the portion, stated up front." };
       case "welcome":
         return { action: "Use this line in the next post. Don’t invent a staff name.", draft: `The room is looked after. If you’re in this week, the ${heroMain} is the easy order.` };
       default:
-        return { action: "Lead with the dishes guests already name. Don’t add a superlative.", draft: "Guests come back for masala chai and samosa chaat. Both are on this week." };
+        return { action: "Lead with the dishes guests already name. Don’t add a superlative.", draft: ws.voice.praiseLines[0].replace("{street}", ws.street) };
     }
   };
   replace(

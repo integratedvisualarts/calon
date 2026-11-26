@@ -15,9 +15,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Chai Social · Calon",
+  title: "Calon",
   description:
-    "Growth with heart. Built in Wales. Chai Social’s day on Whitchurch Road: sales, reviews and local signals, with nothing posted until you approve it.",
+    "Growth with heart. Built in Wales. Your restaurant’s day: sales, reviews and local signals, with nothing posted until you approve it.",
   applicationName: "Calon",
   icons: {
     icon: [
@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const cacheReset = `(function(){try{var b=${JSON.stringify(process.env.NEXT_PUBLIC_BUILD_ID || "")};var k="calon-build";var p=localStorage.getItem(k);if(p&&p!==b){localStorage.removeItem("chai-social-workspace");sessionStorage.removeItem("calon-splash");}if(b)localStorage.setItem(k,b);if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations){navigator.serviceWorker.getRegistrations().then(function(rs){for(var i=0;i<rs.length;i++)rs[i].unregister();});}if(window.caches&&caches.keys){caches.keys().then(function(keys){for(var i=0;i<keys.length;i++)caches.delete(keys[i]);});}}catch(e){}})();`;
+const cacheReset = `(function(){try{var b=${JSON.stringify(process.env.NEXT_PUBLIC_BUILD_ID || "")};var k="calon-build";var p=localStorage.getItem(k);if(p&&p!==b){localStorage.removeItem("chai-social-workspace");localStorage.removeItem("calon-workspace-chai-social");localStorage.removeItem("calon-workspace-brothers-pontyclun");sessionStorage.removeItem("calon-splash");}if(b)localStorage.setItem(k,b);if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations){navigator.serviceWorker.getRegistrations().then(function(rs){for(var i=0;i<rs.length;i++)rs[i].unregister();});}if(window.caches&&caches.keys){caches.keys().then(function(keys){for(var i=0;i<keys.length;i++)caches.delete(keys[i]);});}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
