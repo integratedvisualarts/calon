@@ -66,7 +66,7 @@ const menu: MenuItem[] = [
 export const brothers: Workspace = {
   id: "brothers-pontyclun",
   name: "Brothers Contemporary Indian Cuisine",
-  owner: "The Brothers team",
+  owner: "Dominic",
   type: "Contemporary Indian restaurant",
   cuisine: "Modern Indian, tandoor and Welsh ingredients",
   town: "Pontyclun",

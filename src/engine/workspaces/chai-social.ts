@@ -1,7 +1,7 @@
 import type { Workspace } from "../types";
 
 /**
- * Chai Social demo workspace.
+ * Chefs of India demo workspace (formerly Chai Social).
  *
  * Public facts (checked on chaisocial.co.uk, the order page and Just Eat): name, address, phone,
  * email, opening hours, the 21:45 order-page cut-off, and the menu names and prices marked
@@ -13,7 +13,7 @@ import type { Workspace } from "../types";
  */
 export const chaiSocial: Workspace = {
   id: "chai-social",
-  name: "Chai Social",
+  name: "Chefs of India",
   owner: "Rajendra",
   type: "Indian street food café / chai house",
   cuisine: "North Indian, vegetarian-led",

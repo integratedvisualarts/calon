@@ -23,7 +23,7 @@ export type Brand = {
   keywords: string;
   /** Short place line: shown in headings and drafts. */
   place: string;
-  /** Full line used in drafts, e.g. "Chai Social, 134 Whitchurch Road". */
+  /** Full line used in drafts, e.g. "Chefs of India, 134 Whitchurch Road". */
   nameAndPlace: string;
   /** The search phrase the home screen leads with. */
   focusTerm: string;
@@ -71,7 +71,7 @@ indian restaurant whitchurch road
 masala chai cardiff
 vegetarian thali cardiff`,
   place: "Whitchurch Road",
-  nameAndPlace: "Chai Social, 134 Whitchurch Road",
+  nameAndPlace: "Chefs of India, 134 Whitchurch Road",
   focusTerm: "chai near me",
   signatureWords: "vegetarian thali, masala chai",
   signaturePair: "The vegetarian thali and masala chai",
@@ -239,7 +239,7 @@ indian takeaway pontyclun`,
     fromPublicReviews: ["Tandoor", "Butter chicken", "Goan prawns", "Cocktails"],
     notVerified: "Desserts and the set menu are not loaded yet. Covers, rota and demand are modelled until the till is connected.",
   },
-  teamLead: "The Brothers team",
+  teamLead: "Dominic",
 };
 
 export const brands: Record<string, Brand> = {

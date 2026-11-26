@@ -5,7 +5,7 @@ import { business, productName, reviews } from "@/data/demo-data";
 import { tabFor } from "@/lib/history";
 import { useStore, type Screen } from "@/lib/store";
 import { cn } from "cn";
-import { Bell, ChevronLeft, House, Megaphone, MessageCircle, UserRound, LayoutGrid } from "lucide-react";
+import { Bell, ChevronLeft, House, Megaphone, MessageCircle, UserRound, LayoutGrid, LogOut } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { workspace } from "@/data/live";
 import { dataLabel } from "@/engine/provenance";
@@ -130,6 +130,21 @@ export function Shell({ children }: { children: ReactNode }) {
             >
               <Bell className="size-5" aria-hidden="true" />
               {waiting > 0 ? <span className="absolute top-2 right-2 size-2.5 rounded-full bg-coral" aria-hidden="true" /> : null}
+            </button>
+            <button
+              type="button"
+              aria-label="Sign out"
+              title="Sign out"
+              onClick={async () => {
+                try {
+                  await fetch("/api/logout", { method: "POST" });
+                } finally {
+                  window.location.assign("/login");
+                }
+              }}
+              className="grid size-11 place-items-center rounded-full border border-line text-[#F4EEE1] hover:text-[#C4A15A]"
+            >
+              <LogOut className="size-5" aria-hidden="true" />
             </button>
             {store.bellOpen ? <BellPanel /> : null}
           </div>
