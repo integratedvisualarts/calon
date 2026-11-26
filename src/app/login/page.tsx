@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CalonLockup } from "@/components/brand";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -32,11 +33,11 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="grid min-h-screen place-items-center bg-navy px-6 text-ink">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-navy px-6 py-10 text-ink">
       <form onSubmit={submit} className="w-full max-w-sm space-y-4">
         <div className="text-center">
-          <p className="font-serif text-4xl">Calon</p>
-          <p className="mt-2 text-mist">Growth with heart. Built in Wales.</p>
+          <CalonLockup tone="cream" className="mx-auto h-16 w-auto" />
+          <p className="mt-3 text-mist">Growth with heart. Built in Wales.</p>
         </div>
         <label className="block text-[0.85rem] text-mist">
           Username
@@ -70,6 +71,11 @@ export default function LoginPage() {
         </button>
         <p className="text-center text-[0.75rem] text-faint">Pilot access. Ask your Calon contact if you need a login.</p>
       </form>
+      <footer className="mt-10 max-w-sm space-y-1 text-center text-[0.7rem] leading-snug text-faint">
+        <p>Calon Intelligence is a trading name of Integrated Visual Arts Ltd.</p>
+        <p>Registered in England and Wales (Company No. 17169834).</p>
+        <p>Registered Office: 3 Messina House, Vellacott Close, Cardiff, Wales, CF10 4AS.</p>
+      </footer>
     </main>
   );
 }

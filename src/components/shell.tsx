@@ -150,7 +150,14 @@ export function Shell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className={cn("min-w-0 overflow-x-hidden px-4 pt-4 lg:px-8 lg:pt-6 lg:pb-16", store.screen === "home" ? "pb-24" : "pb-44")}>
-          <div className="mx-auto min-w-0 max-w-5xl">{children}</div>
+          <div className="mx-auto min-w-0 max-w-5xl">
+            {children}
+            <footer className="mt-10 space-y-0.5 border-t border-line pt-4 text-[0.68rem] leading-snug text-faint">
+              <p>Calon Intelligence is a trading name of Integrated Visual Arts Ltd.</p>
+              <p>Registered in England and Wales (Company No. 17169834).</p>
+              <p>Registered Office: 3 Messina House, Vellacott Close, Cardiff, Wales, CF10 4AS.</p>
+            </footer>
+          </div>
         </main>
         <button
           type="button"
