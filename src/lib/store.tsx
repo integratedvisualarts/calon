@@ -273,7 +273,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setState((current) => {
           const on = !current.sources[id];
           const label =
-            id === "google" ? "Google Business Profile" : id === "reviews" ? "Google reviews" : id === "sales" ? "Square POS" : "Instagram and Facebook";
+            id === "google" ? "Google Business Profile" : id === "reviews" ? "Google reviews" : id === "sales" ? "Till data" : "Instagram and Facebook";
           return {
             ...current,
             sources: { ...current.sources, [id]: on },
@@ -528,7 +528,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           : {
               id: `a-${Date.now()}`,
               role: "assistant",
-              text: "I can answer from Square, Google and the rota. Try one of the questions below.",
+              text: "I can answer from your till data, Google and the rota. Try one of the questions below.",
               source: "Chai Social account",
             };
         setState((current) => ({ ...current, messages: [...current.messages, userMessage, answer] }));

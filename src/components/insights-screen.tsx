@@ -31,11 +31,11 @@ export function InsightsScreen() {
   if (!store.sources.sales) {
     return (
       <EmptyState
-        title="Square isn’t connected"
-        body="Connect Square POS in Profile to see what the week is suggesting."
+        title="No till data loaded yet"
+        body="Upload your till export in Profile to see what the week is suggesting."
         action={
           <button type="button" className="min-h-11 font-semibold text-saffron" onClick={() => store.go("profile")}>
-            Connect Square POS
+            Upload till data
           </button>
         }
       />

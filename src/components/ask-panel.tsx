@@ -41,7 +41,7 @@ export function AskPanel() {
             <div className="flex flex-wrap items-center gap-2">
               <DialogTitle className="font-serif text-2xl text-ink">Ask Calon</DialogTitle>
             </div>
-            <DialogDescription className="text-[0.8rem] text-faint">Square, Google and the rota for {business.name}.</DialogDescription>
+            <DialogDescription className="text-[0.8rem] text-faint">Till data, Google and the rota for {business.name}.</DialogDescription>
           </div>
         </div>
         <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto px-4 py-4">

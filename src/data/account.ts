@@ -19,7 +19,7 @@ export const team = [
 export const connectors: Connector[] = [
   {
     id: "square",
-    label: "Square POS",
+    label: "Till data",
     status: "Connected",
     synced: "7 minutes ago",
     detail: "Till, covers and item sales.",

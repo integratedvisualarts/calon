@@ -38,7 +38,7 @@ export function OpportunitiesScreen() {
       title: "Sales",
       score: `${salesSnapshot.daily} today`,
       count: `${salesOpportunities.length} open`,
-      source: "Data from: Square POS API, or upload a standard template.",
+      source: "Data from: your till export (CSV upload).",
       onOpen: () => store.go("sales"),
     },
     ...opportunityTypeOrder.map((type) => ({

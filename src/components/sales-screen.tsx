@@ -9,11 +9,11 @@ export function SalesScreen() {
   if (!store.sources.sales) {
     return (
       <EmptyState
-        title="Square isn’t connected"
-        body="Connect Square POS in Profile, or upload a sales template."
+        title="No till data loaded yet"
+        body="Upload your till export in Profile to see your sales."
         action={
           <button type="button" className="min-h-11 font-semibold text-saffron" onClick={() => store.go("profile")}>
-            Connect Square POS
+            Upload till data
           </button>
         }
       />

@@ -111,7 +111,7 @@ export function PageHeader({ kicker, title, lede }: { kicker?: string; title: st
 }
 
 export function ForecastNote() {
-  return <p className="text-[0.8rem] text-faint">Range from the last 8 weeks on Square.</p>;
+  return <p className="text-[0.8rem] text-faint">Range from the last 8 weeks of till data.</p>;
 }
 
 export function EmptyState({ title, body, action }: { title: string; body: string; action?: ReactNode }) {

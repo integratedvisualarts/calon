@@ -235,7 +235,7 @@ export const searchTerms: { term: string; read: string }[] = [];
 export const connectedSources = [
   { id: "google" as const, label: "Google Business Profile", detail: "Hours, category, photos and the Whitchurch Road listing." },
   { id: "reviews" as const, label: "Google reviews", detail: "" },
-  { id: "sales" as const, label: "Square POS", detail: "" },
+  { id: "sales" as const, label: "Till data", detail: "" },
   { id: "social" as const, label: "Instagram and Facebook", detail: "Posts wait here until you approve them." },
 ];
 

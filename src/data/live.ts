@@ -159,7 +159,7 @@ export function refreshLive(done: DoneFix[] = [], now: Date = liveNow()): Snapsh
     deliveryPct: 100 - dinePct,
     booked: t.seatedBooked,
     walkIn: t.seatedWalkIn,
-    sync: `Square POS · synced ${t.syncText}`,
+    sync: `Till data · synced ${t.syncText}`,
   };
   if (s.top) {
     business.opportunity = {
@@ -182,7 +182,7 @@ export function refreshLive(done: DoneFix[] = [], now: Date = liveNow()): Snapsh
     .map((p) => dayNames[p.dow]);
   const quiet = s.salesOpps.find((o) => o.id === "sales-quiet");
   const quietLabel = quiet ? quiet.title.replace(" is the quiet sitting", "") : dayNames[ranked[ranked.length - 1]?.dow ?? 1];
-  sales.yesterdayLabel = "Today so far · Square POS";
+  sales.yesterdayLabel = "Today so far · Till data";
   sales.yesterday = money(sum.takings);
   sales.yesterdayPounds = Math.round(sum.takings);
   sales.weekAhead = moneyRange(s.weekLow, s.weekHigh);
@@ -430,7 +430,7 @@ export function refreshLive(done: DoneFix[] = [], now: Date = liveNow()): Snapsh
       prompt: "How is today going?",
       keywords: ["today", "going", "takings", "till", "how are we", "so far"],
       answer: `${money(sum.takings)} so far, ${plural(t.seatedCovers, "cover")} seated and ${money(sum.deliveryTakings)} of delivery. A normal ${day} has taken ${money(t.expected.takings)} by ${hhmm(minute)}, so you’re ${pace === "level" ? "on pace" : `${money(Math.abs(t.vsExpected))} ${pace}`}. ${t.tonight.length} bookings tonight for ${t.tonightCovers} covers.`,
-      source: `Square POS, today against the last ${sameDays.length} ${day}s`,
+      source: `Till data, today against the last ${sameDays.length} ${day}s`,
       bars: [...sameDays.map((r) => ({ label: shortDate(parseKey(r.key)), value: Math.round(r.summary.takings) })), { label: "Today", value: Math.round(sum.takings) }],
       card: { title: "Suggested move", body: s.salesOpps[0] ? `${s.salesOpps[0].title}. ${s.salesOpps[0].actionLabel}.` : "Nothing urgent." },
     },
@@ -470,7 +470,7 @@ export function refreshLive(done: DoneFix[] = [], now: Date = liveNow()): Snapsh
       answer: lastCampaign
         ? `${lastCampaign.title} brought ${lastCampaign.lowHigh[0]}–${lastCampaign.lowHigh[1]} extra covers against ${plural(lastCampaign.n, `ordinary ${dayNames[parseKey(lastCampaign.date).getDay()]}`)}. ${lastCampaign.item ? `${lastCampaign.item}: ${lastCampaign.qty} sold against ${Math.round(lastCampaign.usualQty)} usually.` : ""}`
         : "No campaign has finished yet.",
-      source: lastCampaign ? `Square POS, ${dayDate(parseKey(lastCampaign.date))}` : "Square POS",
+      source: lastCampaign ? `Till data, ${dayDate(parseKey(lastCampaign.date))}` : "Till data",
       card: lastCampaign ? { title: dayDate(parseKey(lastCampaign.date)), body: `${Math.round(lastCampaign.extra)} covers above a normal day. One wet day can move it.` } : undefined,
     },
     {

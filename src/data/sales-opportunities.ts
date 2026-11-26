@@ -32,5 +32,5 @@ export const salesSnapshot = {
   peaks: "",
   good: "",
   bad: "",
-  source: "Data from: Square POS API, or upload a standard template.",
+  source: "Data from: your till export (CSV upload).",
 };
