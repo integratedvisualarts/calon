@@ -52,7 +52,7 @@ export function OpportunitiesScreen() {
   ];
   return (
     <div className="rise grid gap-4">
-      <PageHeader kicker="Opportunities" title="Seven places to act" lede="Each one names its source. The button on a cue opens a campaign, still unsent." />
+      <PageHeader kicker="Opportunities" title="Places to act" lede="Each one names its source. The button on a cue opens a campaign, still unsent." />
       <ul className="grid gap-3 sm:grid-cols-2">
         {cards.map((card) => (
           <li key={card.id}>
